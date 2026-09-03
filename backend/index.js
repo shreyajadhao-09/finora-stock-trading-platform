@@ -42,6 +42,10 @@ app.use(
 );
 app.use(bodyParse.json());
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Finora API is running" });
+});
+
 // app.get("/addHoldings", async (req, res) => {
 //   let tempHoldings = [
 //     {
