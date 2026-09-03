@@ -1,5 +1,7 @@
 backend/node_modules/
+frontend/node_modules/
 dashbord/node_modules/
+frontend/build/
 dashbord/build/
 backend/.env
 dashbord/.env
