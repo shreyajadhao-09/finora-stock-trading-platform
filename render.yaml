@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: finora-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        value: https://finora-landing.onrender.com,https://finora-dashboard.onrender.com
+
+  - type: web
+    name: finora-landing
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://finora-api.onrender.com
+      - key: REACT_APP_DASHBOARD_URL
+        value: https://finora-dashboard.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  - type: web
+    name: finora-dashboard
+    runtime: static
+    rootDir: dashbord
+    buildCommand: npm ci && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://finora-api.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
